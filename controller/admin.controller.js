@@ -4,13 +4,20 @@ exports.adminLoginPage = (request,response,next)=>{
         title: "Login"
     });
 };
+exports.adminDashBoard = (request,response,next)=>{
+   response.render('admin/admin_dashboard.ejs',{
+      title : "Admin Dashboard"
+    });
+}
 exports.adminLoginPost = (request,response,next)=>{
    const email = request.body.email;
    const password = request.body.password;
    let admin = new Admin(email,password);
    admin.checkAdmin().then(results=>{
-     if(results.length>0)
-       console.log("Login Succes....");
+     if(results.length>0){
+      request.session.current_user = email; 
+      response.redirect("/admin/dashboard"); 
+     }
      else
        console.log("Login Failed...");  
    }).catch(err=>{
