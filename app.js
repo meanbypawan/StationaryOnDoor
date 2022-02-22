@@ -6,6 +6,7 @@ const adminRouter = require('./routes/admin.routes');
 const userRouter = require('./routes/user.routes');
 const indexRouter = require('./routes/index.routes');
 const categoryRouter = require('./routes/category.routes');
+const productRouter = require('./routes/product.routes');
 const fileupload = require('express-fileupload');
 const app = express();
 
@@ -21,7 +22,7 @@ app.use(fileupload());
 app.use("/admin",adminRouter);
 app.use("/category",categoryRouter);
 app.use("/user",userRouter);
-
+app.use("/product",productRouter);
 app.use(indexRouter);
 
 app.listen(3000);

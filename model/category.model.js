@@ -4,6 +4,21 @@ module.exports = class Category {
         this.categoryName = categoryName;
         this.categoryImage = categoryImage;
     }
+    static fetchAllCategory(){
+        return new Promise((resolve,reject)=>{
+           pool.getConnection((err,con)=>{
+             if(!err){
+               let sql = "select * from category";
+               con.query(sql,(err,queryResults)=>{
+                  con.release();
+                  err ? reject(err) : resolve(queryResults);
+               });
+             }
+             else 
+               reject(err);
+           }); 
+        });
+    }
     save() {
         return new Promise((resolve, reject) => {
             pool.getConnection((err, con) => {

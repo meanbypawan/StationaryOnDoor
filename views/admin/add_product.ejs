@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <title><%=title%></title>
+        <%- include('../partial/_bootstrap.ejs')%>
+    </head>
+    <body>
+        <%- include('_admin_navigation.ejs')%>
+      <div class="container">
+        <form action="/product/add-product" method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <label>Category</label>
+            <select name="categoryId" class="form-control">
+                <option value="0">select category</option>
+                <%for(category of categories){%>
+                   <option value="<%=category.id%>"><%=category.categoryName%></option>
+                <%}%>    
+            </select>
+          </div>
+          <div class="form-group">
+              <label>Product Name</label>
+              <input type="text" name="productName" class="form-control"/>
+          </div>
+          <div class="form-group">
+            <label>Price</label>
+            <input type="text" name="productPrice" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label>Quantity</label>
+            <input type="number" name="productQty" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea name="productDescription" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Upload(Forn, Back, Left, Rigth view)</label>
+            <br><input type="file" name="productImages" multiple/>
+        </div>
+        <div class="group">
+            <button class="btn btn-primary" type="submit">Add</button>
+        </div>
+        </form>
+      </div>
+    </body>
+
+</html>
