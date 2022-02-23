@@ -24,3 +24,8 @@ exports.adminLoginPost = (request,response,next)=>{
        console.log(err);
    });
 };
+exports.signout = (request,response,next)=>{
+    request.session.current_user = null;
+    request.session.destroy();
+    response.redirect("/admin/");
+}

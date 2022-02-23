@@ -11,7 +11,21 @@ module.exports = class Product{
     this.leftViewImage = leftViewImage;
     this.rightViewImage = rightViewImage;     
   }
-
+  static fetchAllProduct(){
+    return new Promise((resolve,reject)=>{
+      pool.getConnection((err,con)=>{
+        if(!err){
+          let sql = "select * from product";
+          con.query(sql,(err,queryResults)=>{
+            con.release();
+            err ? reject(err) : resolve(queryResults);
+          });
+        }
+        else
+          reject(err);
+      })
+    });
+  }
   save(){
       return new Promise((resolve,reject)=>{
         pool.getConnection((err,con)=>{

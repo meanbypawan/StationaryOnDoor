@@ -7,7 +7,6 @@ const userRouter = require('./routes/user.routes');
 const indexRouter = require('./routes/index.routes');
 const categoryRouter = require('./routes/category.routes');
 const productRouter = require('./routes/product.routes');
-const fileupload = require('express-fileupload');
 const app = express();
 
 app.set("view engine","ejs");
@@ -17,7 +16,6 @@ app.use(express.static(path.join(__dirname,"public")));
 app.use(session({
     secret: 'dfkjfrrereprxvncvncvnrorererp'
 }));
-app.use(fileupload());
 
 app.use("/admin",adminRouter);
 app.use("/category",categoryRouter);

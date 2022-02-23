@@ -9,3 +9,7 @@
     padding: 50px;
     box-shadow: 0px 0px 5px grey;
 }
+.sidebar{
+    min-height: 600px;
+    background-color: #343A40;
+}
