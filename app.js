@@ -7,6 +7,7 @@ const userRouter = require('./routes/user.routes');
 const indexRouter = require('./routes/index.routes');
 const categoryRouter = require('./routes/category.routes');
 const productRouter = require('./routes/product.routes');
+const cartRouter = require('./routes/cart.routes');
 const app = express();
 
 app.set("view engine","ejs");
@@ -17,10 +18,12 @@ app.use(session({
     secret: 'dfkjfrrereprxvncvncvnrorererp'
 }));
 
+// http://localhost:3000/signout
 app.use("/admin",adminRouter);
 app.use("/category",categoryRouter);
 app.use("/user",userRouter);
 app.use("/product",productRouter);
+app.use("/cart",cartRouter);
 app.use(indexRouter);
 
 app.listen(3000);

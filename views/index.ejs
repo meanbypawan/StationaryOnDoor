@@ -31,6 +31,7 @@
     <div class="col-md-10">
       <div class="container">
         <div class="row mt-4">
+          
           <%for(product of productList){%>
           <div class="col-md-4 mt-2">
             <div class="card">
@@ -39,8 +40,12 @@
                 <h4 class="card-title text-center"><%=product.productName%></h4>
                 <p class="card-text text-center"><%=product.productDescription%></p>
                 <div>
-                  <button class="btn btn-primary">Add To Cart</button>
-                  <button class="btn btn-success">Add To Favorite</button>
+                  <%if(product.productId){%>
+                    <button onclick="addToCart(this,'<%=isLoggedIn%>','<%=product.id%>')" class="btn btn-primary">Remove From Cart</button>
+                  <%}else{%>  
+                    <button onclick="addToCart(this,'<%=isLoggedIn%>','<%=product.id%>')" class="btn btn-primary">Add To Cart</button>
+                  <%}%>
+                  <button class="btn btn-success">Favorite</button>
                 </div>    
               </div>
             </div>
@@ -51,6 +56,34 @@
     </div>
   </div>
 </div>
+<script>
+  function addToCart(button,isLoggedIn,pid){
+    if(isLoggedIn){
+      var buttonText = button.innerText;
+      if(buttonText == "Add To Cart"){
+        $.ajax({
+          url: "/cart/add-to-cart/"+pid,
+          success: function(result){
+            alert("Item Added In Cart");
+            button.innerText = "Remove From Cart";
+          }
+        });
+        
+      }
+      else if(buttonText == "Remove From Cart"){
+        $.ajax({
+          url: "/cart/remove-from-cart/"+pid,
+          success: function(result){
+            alert("Item Removed From Cart..");
+            button.innerText = "Add To Cart";
+          }
+        });
+      }
+    }
+    else
+      window.location.href = "/login";
 
+  }
+</script>
 </body>
 </html>
