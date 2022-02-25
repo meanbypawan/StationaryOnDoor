@@ -4,6 +4,21 @@ module.exports = class Cart{
         this.productId = productId;
         this.userId = userId;
     }
+    static fetchAllCartItem(userId){
+       return new Promise((resolve,reject)=>{
+        pool.getConnection((err,con)=>{
+          if(!err){
+            let sql = "select product.id,product.productName,product.productPrice,product.productQty,product.productDescription,product.frontViewImage,cart.id as cartId from product inner join cart on product.id = cart.productId where cart.userId = ?";
+            con.query(sql,[userId*1],(err,queryResults)=>{
+              con.release();
+              err ? reject(err) : resolve(queryResults);
+            });    
+          }
+          else
+            reject(err);
+        });
+       });
+    }
     removeFromCart(){
         return new Promise((resolve,reject)=>{
              pool.getConnection((err,con)=>{
